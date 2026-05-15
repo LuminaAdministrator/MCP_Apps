@@ -65,13 +65,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Docker image
+      - name: Build and smoke-test image
         working-directory: well-td-plot
-        run: docker build -t well-td-plot:ci .
-
-      - name: Smoke-test container health endpoint
         run: |
+          docker build -t well-td-plot:ci .
           docker run -d --name td-plot-test -p 8080:8080 well-td-plot:ci
           sleep 3
           curl -sf http://localhost:8080/health
           docker stop td-plot-test
+
+      # Registry push only on commits to main (not on pull requests)
+      - name: Log in to Docker Hub
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push image to Docker Hub
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        working-directory: well-td-plot
+        run: |
+          SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          docker build \
+            -t luminageo/mcp_plot_td:latest \
+            -t luminageo/mcp_plot_td:$SHA \
+            .
+          docker push luminageo/mcp_plot_td:latest
+          docker push luminageo/mcp_plot_td:$SHA
