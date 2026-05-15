@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: well-td-plot
+  repository: luminageo/mcp_plot_td
   pullPolicy: IfNotPresent
   tag: ""  # defaults to Chart.appVersion
 
