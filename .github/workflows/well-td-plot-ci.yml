@@ -1,14 +1,19 @@
-name: CI
+name: well-td-plot CI
 
 on:
   push:
     branches: ["main"]
+    paths: ["well-td-plot/**"]
   pull_request:
     branches: ["main"]
+    paths: ["well-td-plot/**"]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: well-td-plot
     strategy:
       matrix:
         python-version: ["3.11", "3.12"]
@@ -29,7 +34,7 @@ jobs:
           TD_PLOT_DATA_SOURCE_MODE: fixture
         run: pytest -v
 
-      - name: Validate bundled fixtures against public schema
+      - name: Validate fixture against public schema
         run: |
           python -c "
           import json, jsonschema, sys
@@ -48,8 +53,7 @@ jobs:
           v = jsonschema.Draft202012Validator(schema, registry=registry)
           errors = list(v.iter_errors(instance))
           if errors:
-              for e in errors:
-                  print(e, file=sys.stderr)
+              for e in errors: print(e, file=sys.stderr)
               sys.exit(1)
           print('fixtures/envelope.example.json OK')
           "
@@ -62,6 +66,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build Docker image
+        working-directory: well-td-plot
         run: docker build -t well-td-plot:ci .
 
       - name: Smoke-test container health endpoint
