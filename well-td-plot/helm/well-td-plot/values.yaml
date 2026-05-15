@@ -5,6 +5,9 @@ image:
   pullPolicy: IfNotPresent
   tag: ""  # defaults to Chart.appVersion
 
+imagePullSecrets: []
+  # - name: dockerhub-credentials
+
 service:
   type: ClusterIP
   port: 80
