@@ -1,0 +1,30 @@
+replicaCount: 1
+
+image:
+  repository: well-td-plot
+  pullPolicy: IfNotPresent
+  tag: ""  # defaults to Chart.appVersion
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+env:
+  # "fixture" for local dev; "external_http" in deployed environments
+  TD_PLOT_DATA_SOURCE_MODE: external_http
+
+  # Base URL of the Jio platform service that exposes GET /api/td/{uniquedataid}
+  # Override in environment-specific values files.
+  TD_PLOT_DATA_SERVICE_URL: http://jio-platform-api/
+
+  TD_PLOT_HOST: "0.0.0.0"
+  TD_PLOT_PORT: "8080"

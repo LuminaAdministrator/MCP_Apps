@@ -1,0 +1,6 @@
+apiVersion: v2
+name: well-td-plot
+description: JIO-compatible MCP app for Time-Depth function plotting
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

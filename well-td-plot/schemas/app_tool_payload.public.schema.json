@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jio.ai/contracts/mcp-app-external/app_tool_payload.public.schema.json",
+  "title": "JIO external MCP app structuredContent payload",
+  "description": "Public, self-contained schema for the JIO host-facing structuredContent payload for app-producing tools.",
+  "allOf": [
+    {
+      "$ref": "./app_instance_envelope.public.schema.json"
+    }
+  ]
+}

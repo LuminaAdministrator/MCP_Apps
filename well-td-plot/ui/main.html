@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TD Plot</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+    h1 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: #333;
+    }
+    #vis-container {
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+      padding: 12px;
+      display: inline-block;
+    }
+    #error {
+      color: #c0392b;
+      font-size: 0.9rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="page-title">TD Plot</h1>
+  <div id="vis-container">
+    <div id="vis"></div>
+  </div>
+  <p id="error"></p>
+
+  <script>
+    (function () {
+      // __APP_CONFIG_JSON__ is replaced server-side with the actual config object.
+      // In standalone HTTP mode the server injects this at request time.
+      // In MCP-hosted mode the host renders from the ui_resource.text field.
+      var appConfig = __APP_CONFIG_JSON__;
+
+      if (!appConfig || !appConfig.vegaLiteSpec) {
+        document.getElementById("error").style.display = "block";
+        document.getElementById("error").textContent =
+          "No chart data available. Check app configuration.";
+        return;
+      }
+
+      if (appConfig.wellName) {
+        document.getElementById("page-title").textContent =
+          "TD Plot — " + appConfig.wellName;
+        document.title = "TD Plot — " + appConfig.wellName;
+      }
+
+      vegaEmbed("#vis", appConfig.vegaLiteSpec, {
+        renderer: "svg",
+        actions: { export: true, source: false, compiled: false, editor: false },
+        theme: "latimes",
+      }).catch(function (err) {
+        document.getElementById("error").style.display = "block";
+        document.getElementById("error").textContent =
+          "Chart render error: " + err.message;
+      });
+    })();
+  </script>
+</body>
+</html>

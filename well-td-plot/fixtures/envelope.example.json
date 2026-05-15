@@ -1,0 +1,93 @@
+{
+  "instance_id": "well.TD.plot.example-well-001",
+  "result_kind": "app_instance",
+  "app_id": "well.TD.plot",
+  "app_version": "1",
+  "source_tool": "well.TD.plot.render",
+  "title": "TD Plot: Example Well 1 — TD Survey",
+  "artifact_refs": [],
+  "emitted_artifacts": [
+    {
+      "artifact_id": "artifact:well.TD.plot:example-well-001:chart_spec",
+      "artifact_type": "chart_spec",
+      "role": "primary",
+      "title": "TD chart — Example Well 1 — TD Survey",
+      "source_tool": "well.TD.plot.render",
+      "instance_id": "well.TD.plot.example-well-001"
+    }
+  ],
+  "selectable_runtime_values": [
+    {
+      "key": "selected_uniquedataid",
+      "value_type": "string",
+      "label": "Selected TD function",
+      "description": "The uniquedataid of the TD function that was plotted.",
+      "value_schema": { "type": "string" }
+    }
+  ],
+  "state_kind": "resolved",
+  "state_schema_version": "1",
+  "state": {
+    "uniquedataid": "example-well-001",
+    "dataname": "Example Well 1 — TD Survey",
+    "source_tool": "Vega Lite Chart",
+    "time_ref": "TWT",
+    "time_unit": "ms",
+    "depth_ref": "MD",
+    "depth_unit": "m",
+    "vega_lite_spec": {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "description": "Time-Depth function plot",
+      "width": 350,
+      "height": 550,
+      "data": {
+        "values": [
+          { "time": 0,    "depth": 0    },
+          { "time": 200,  "depth": 400  },
+          { "time": 380,  "depth": 750  },
+          { "time": 540,  "depth": 1050 },
+          { "time": 690,  "depth": 1320 },
+          { "time": 830,  "depth": 1580 },
+          { "time": 960,  "depth": 1820 },
+          { "time": 1085, "depth": 2050 },
+          { "time": 1200, "depth": 2270 },
+          { "time": 1310, "depth": 2480 },
+          { "time": 1415, "depth": 2680 },
+          { "time": 1515, "depth": 2870 },
+          { "time": 1610, "depth": 3050 }
+        ]
+      },
+      "mark": { "type": "line", "color": "#1f77b4", "strokeWidth": 2 },
+      "encoding": {
+        "x": {
+          "field": "time",
+          "type": "quantitative",
+          "title": "TWT (ms)",
+          "axis": { "orient": "top", "tickCount": 6 }
+        },
+        "y": {
+          "field": "depth",
+          "type": "quantitative",
+          "title": "MD (m)",
+          "scale": { "reverse": true },
+          "axis": { "tickCount": 8 }
+        },
+        "tooltip": [
+          { "field": "time",  "type": "quantitative", "title": "TWT (ms)" },
+          { "field": "depth", "type": "quantitative", "title": "MD (m)" }
+        ]
+      },
+      "title": "Example Well 1 — TD Survey"
+    },
+    "data_point_count": 13
+  },
+  "summary": "Resolved TD plot for 'Example Well 1 — TD Survey' (example-well-001), 13 data points.",
+  "meta": {
+    "app_name": "TD Plot",
+    "description": "Time-Depth function plot using Vega-Lite.",
+    "ui_resource": {
+      "uri": "ui://well.TD.plot/main.html",
+      "mimeType": "text/html;profile=mcp-app"
+    }
+  }
+}

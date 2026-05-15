@@ -1,0 +1,23 @@
+{
+  "uniquedataid": "example-well-001",
+  "dataname": "Example Well 1 — TD Survey",
+  "time_unit": "ms",
+  "depth_unit": "m",
+  "time_ref": "TWT",
+  "depth_ref": "MD",
+  "td_pairs": [
+    { "time": 0,    "depth": 0    },
+    { "time": 200,  "depth": 400  },
+    { "time": 380,  "depth": 750  },
+    { "time": 540,  "depth": 1050 },
+    { "time": 690,  "depth": 1320 },
+    { "time": 830,  "depth": 1580 },
+    { "time": 960,  "depth": 1820 },
+    { "time": 1085, "depth": 2050 },
+    { "time": 1200, "depth": 2270 },
+    { "time": 1310, "depth": 2480 },
+    { "time": 1415, "depth": 2680 },
+    { "time": 1515, "depth": 2870 },
+    { "time": 1610, "depth": 3050 }
+  ]
+}
