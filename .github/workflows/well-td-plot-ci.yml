@@ -73,10 +73,6 @@ jobs:
           curl -sf http://localhost:8080/health
           docker stop td-plot-test
 
-      - name: Debug Docker Hub username
-        if: github.event_name != 'pull_request'
-        run: echo "DOCKERHUB_USERNAME='${{ secrets.DOCKERHUB_USERNAME }}'"
-
       - name: Log in to Docker Hub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
