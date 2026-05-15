@@ -3,10 +3,9 @@ name: well-td-plot CI
 on:
   push:
     branches: ["main"]
-    paths: ["well-td-plot/**"]
   pull_request:
     branches: ["main"]
-    paths: ["well-td-plot/**"]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -74,16 +73,15 @@ jobs:
           curl -sf http://localhost:8080/health
           docker stop td-plot-test
 
-      # Registry push only on commits to main (not on pull requests)
       - name: Log in to Docker Hub
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push image to Docker Hub
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name != 'pull_request'
         working-directory: well-td-plot
         run: |
           SHA=$(echo ${{ github.sha }} | cut -c1-7)
